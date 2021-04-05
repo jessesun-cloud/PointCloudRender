@@ -1,5 +1,5 @@
 # VertexBuffer
-A class to render point cloud use Vertex Buffer
+A class to render point cloud use Vertex Buffer Object, and fall back to client array if VBO is not supported.
 
 ABOUT
 ================================================================================
