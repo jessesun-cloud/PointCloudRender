@@ -5,8 +5,8 @@ ABOUT
 ================================================================================
 Use OpenGL VBO
 
-
 usage:
+
 VertexBufferVboRender vbo;
 vbo.AddPoints(npt, ...);//upload points to GPU
 
