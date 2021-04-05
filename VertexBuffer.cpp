@@ -2,6 +2,8 @@
 #include "VertexBuffer.hpp"
 #include "glext.h"
 #include <vector>
+#include <iostream>
+
 
 #ifdef _WIN32
 PFNGLGENBUFFERSARBPROC            pglGenBuffersARB = 0;             // VBO Name Generation Procedure

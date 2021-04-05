@@ -2,7 +2,6 @@
 
 #include "gl/gl.h"
 #include "gl/glu.h"
-#include "iostream"
 #define VERTEX_API 
 
 class VERTEX_API ImpPointRenderInterface
@@ -49,9 +48,9 @@ class VERTEX_API VertexBufferRender : public  VertexBufferRenderBase
 public:
   VertexBufferRender()
   {
-    mpPointBuffer = NULL;
-    mpColorBuffer = NULL;
-    mpNormalBuffer = NULL;
+    mpPointBuffer = nullptr;
+    mpColorBuffer = nullptr;
+    mpNormalBuffer = nullptr;
   }
   virtual void DrawPoints(int start, int npt, bool bVariableColor = true);
   virtual void AddPoints(int npt, float* pPointWidth,

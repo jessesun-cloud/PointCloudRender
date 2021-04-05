@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.9)
 
-#InitQt("Core;Widgets;LinguistTools;OpenGL")
+InitQt("Core;Widgets;LinguistTools;OpenGL")
 
 set(PUBLIC_HEADERS 
   inc/VertexBuffer.hpp
+  inc/VaoRender.hpp
 )
 set(PROJECT_SRCS
   VertexBuffer.cpp
+  VaoRender.cpp
 )
 
 find_package(OpenMP)
@@ -17,14 +19,15 @@ endif()
 set(PUBLIC_HEADER_PATH "${CMAKE_SOURCE_DIR}/VertexBuffer/inc")
 
 
-#project VertexBuffer
-set(VertexBuffer "VertexBuffer")
-add_library(${VertexBuffer} STATIC "${PROJECT_SRCS}" "${PUBLIC_HEADERS}")
+#project PointCloudRender
+set(PointCloudRender "PointCloudRender")
+add_library(${PointCloudRender} STATIC "${PROJECT_SRCS}" "${PUBLIC_HEADERS}")
 
-AddExternalDependency(${VertexBuffer} PRIVATE Glext)
-target_include_directories(${VertexBuffer} PUBLIC ${PUBLIC_HEADER_PATH})
-target_include_directories(${VertexBuffer} PUBLIC ${CMAKE_SOURCE_DIR})
-set_target_properties(${VertexBuffer} PROPERTIES FOLDER ${VertexBuffer})
+#target_link_libraries(${PointCloudRender}  Qt5::Core  Qt5::Widgets  Qt5::OpenGL )
+AddExternalDependency(${PointCloudRender} PRIVATE Glext)
+target_include_directories(${PointCloudRender} PUBLIC ${PUBLIC_HEADER_PATH})
+target_include_directories(${PointCloudRender} PUBLIC ${CMAKE_SOURCE_DIR})
+set_target_properties(${PointCloudRender} PROPERTIES FOLDER ${PointCloudRender})
 source_group("Source Files" FILES ${PROJECT_SRCS})
 source_group("Public Headers" FILES ${PUBLIC_HEADERS})
 ##############################################################################################
