@@ -35,7 +35,7 @@ public:
     void DrawPoints(int start, int npt,
                  bool bVariableThickness, bool bVariableColor);
 
-    virtual void DrawPoints(int start, int npt, bool bVariableColor) = 0;
+    virtual void DrawPoints(int start, int npt, bool bVariableColor = true) = 0;
     virtual void AddPoints(int npt, float* pPointWidth,
       unsigned char *pRgbaColor, double *pPoints, float *pNormals) {};
 };
@@ -53,7 +53,7 @@ public:
     mpColorBuffer = NULL;
     mpNormalBuffer = NULL;
   }
-  virtual void DrawPoints(int start, int npt, bool bVariableColor);
+  virtual void DrawPoints(int start, int npt, bool bVariableColor = true);
   virtual void AddPoints(int npt, float* pPointWidth,
                unsigned char *pRgbaColor, float *pPoints, float *pNormals);
 };
@@ -68,7 +68,7 @@ public:
   VertexBufferVboRender();
   virtual void AddPoints(int npt, float* pPointWidth,
                unsigned char *pRgbaColor, float *pPoints, float *pNormals);
-  virtual void DrawPoints(int start, int npt, bool bVariableColor);
+  virtual void DrawPoints(int start, int npt, bool bVariableColor = true);
   virtual ~VertexBufferVboRender();
   virtual void AddPoints(int npt, float* pPointWidth,
     unsigned char *pRgbaColor, double *pPoints, float *pNormals);
