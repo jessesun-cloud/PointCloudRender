@@ -11,4 +11,4 @@ VertexBufferVboRender vbo;
 
 vbo.AddPoints(npt, ...);//upload points to GPU
 
-vbo.DrawPoints(0, -1,  false);//draw point cloud
+vbo.DrawPoints(0, -1);//draw point cloud
