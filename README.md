@@ -4,7 +4,8 @@ A class to render point cloud use Vertex Buffer
 ABOUT
 ================================================================================
 Use OpenGL VBO
-===================
+
+
 usage:
 VertexBufferVboRender vbo;
 vbo.AddPoints(npt, ...);//upload points to GPU
