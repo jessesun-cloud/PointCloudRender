@@ -1,5 +1,3 @@
-#pragma warning (disable:4786)
-//#include "stdafx.h"
 #include "windows.h"
 #include "VertexBuffer.hpp"
 #include "glext.h"
@@ -178,7 +176,7 @@ VertexBufferRender::DrawPoints(int start, int npt, bool bVariableColor)
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(4, GL_UNSIGNED_BYTE, 0, mpColorBuffer);
       }
-       if (mpNormalBuffer != NULL) 
+      if (mpNormalBuffer != NULL) 
       {
         glEnableClientState(GL_NORMAL_ARRAY);
         glNormalPointer(GL_FLOAT, 0, mpNormalBuffer);
@@ -211,41 +209,33 @@ VertexBufferVboRender::~VertexBufferVboRender()
 void 
 VertexBufferVboRender::DrawPoints(int start, int npt, bool bVariableColor)
 {
-  try
+  if (npt == -1)
+      npt = mPointCount;
+  if (npt > 0 && start + npt <= mPointCount)
   {
-    if (npt == -1)
-        npt = mPointCount;
-    if (npt > 0 && start + npt <= mPointCount)
+    GlAutoSaveClientState autoSaveState;
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, mVboId[0]);
+    if (mbDouble)
+      glVertexPointer(3, GL_DOUBLE, 0, NULL);
+    else
+      glVertexPointer(3, GL_FLOAT, 0, NULL);     
+
+    if (bVariableColor && mbHasColor)
     {
-      GlAutoSaveClientState autoSaveState;
-      glEnableClientState(GL_VERTEX_ARRAY);
-      glBindBufferARB(GL_ARRAY_BUFFER_ARB, mVboId[0]);
-      if (mbDouble)
-        glVertexPointer(3, GL_DOUBLE, 0, NULL);
-      else
-        glVertexPointer(3, GL_FLOAT, 0, NULL);
-     
-
-      if (bVariableColor && mbHasColor)
-      {
-        glEnableClientState(GL_COLOR_ARRAY);
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, mVboId[1]);
-        glColorPointer(4, GL_UNSIGNED_BYTE, 0, NULL);
-      }
-      if (mbHasNormal) 
-      {
-        glEnableClientState(GL_NORMAL_ARRAY);
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, mVboId[2]);
-        glNormalPointer(GL_FLOAT, 0, NULL);
-      }
-      glDrawArrays(GL_POINTS, start, npt);
-
-      glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+      glEnableClientState(GL_COLOR_ARRAY);
+      glBindBufferARB(GL_ARRAY_BUFFER_ARB, mVboId[1]);
+      glColorPointer(4, GL_UNSIGNED_BYTE, 0, NULL);
     }
-  }
-  catch(...)
-  {
-    printf("...Error...");
+    if (mbHasNormal) 
+    {
+      glEnableClientState(GL_NORMAL_ARRAY);
+      glBindBufferARB(GL_ARRAY_BUFFER_ARB, mVboId[2]);
+      glNormalPointer(GL_FLOAT, 0, NULL);
+    }
+    glDrawArrays(GL_POINTS, start, npt);
+
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
   }
 }
 
@@ -320,7 +310,7 @@ unsigned char *pRgbaColor, double *pPoints, float *pNormals)
   }
 }
 
- void VertexBufferVboRender::AddRgbPoints(int npt, float* pPointWidth,
+void VertexBufferVboRender::AddRgbPoints(int npt, float* pPointWidth,
   unsigned char *pRgbColor, float *pPoints, float *pNormals)
 {
    std::vector<unsigned char> colors;
